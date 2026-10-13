@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block title %}Dự án{% endblock %}
+
+{% block head %}
+    {{ super() }} {# Giữ lại Bootstrap từ base.html #}[cite: 7]
+    <style>
+        .project-card {
+            border-left: 4px solid #fd0d0d; /* Thêm đường viền xanh bên trái */
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <h1>Danh sách Dự án</h1>
+    <div class="row mt-3">
+        {% for project in projects %}
+            <div class="col-md-6 mb-3">
+                <div class="card p-3 project-card">
+                    <h5>{{ project.name }}</h5>
+                    <p>{{ project.desc }}</p>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

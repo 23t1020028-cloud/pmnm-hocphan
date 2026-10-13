@@ -1,0 +1,51 @@
+:root {
+    --light-blue-bg: #e0f2fe;   /* Mã màu Navbar Xanh Nhạt (Ice Blue) */
+    --text-dark: #334155;       /* Màu chữ menu mặc định */
+    --primary-red: #ff4d4d;     /* Màu đỏ active / brand */
+}
+
+body {
+    background-color: #f8fafc;
+}
+
+.custom-navbar {
+    background-color: var(--light-blue-bg) !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08); /* Đổ bóng nhẹ */
+}
+
+.custom-logo {
+    width: 32px;                  /* Chiều rộng logo */
+    height: 32px;                 /* Chiều cao logo */
+    object-fit: contain;
+}
+
+.custom-brand {
+    color: var(--primary-red) !important;
+    font-size: 1.25rem !important;
+}
+
+.custom-nav-link {
+    color: var(--text-dark) !important;
+    font-weight: 500;
+    font-size: 1.05rem;
+    padding-left: 15px !important;
+    padding-right: 15px !important;
+    transition: all 0.2s ease-in-out;
+}
+
+.custom-nav-link:hover {
+    color: var(--primary-red) !important;
+}
+
+.custom-nav-link.active {
+    color: var(--primary-red) !important;      /* Chữ màu đỏ */
+    font-weight: bold !important;               /* Chữ in đậm */
+    border-bottom: 2px solid var(--primary-red); /* Gạch chân đỏ bên dưới */
+}
+
+.custom-footer {
+    background-color: var(--light-blue-bg) !important; /* Đồng bộ nền xanh nhạt với Navbar */
+    color: #475569 !important;                         /* Màu chữ xám tối dịu mắt */
+    border-top: 1px solid #cbd5e1;                     /* Đường viền mỏng phía trên */
+    font-size: 0.95rem;
+}

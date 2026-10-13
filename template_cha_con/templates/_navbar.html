@@ -1,0 +1,25 @@
+<!-- templates/_navbar.html -->
+<nav class="navbar navbar-expand-lg navbar-light custom-navbar mb-4 py-2">
+    <div class="container">
+        <!-- Logo & Thương hiệu -->
+        <a class="navbar-brand fw-bold d-flex align-items-center gap-2 custom-brand" href="/">
+            <img src="{{ url_for('static', filename='img/logo.svg') }}" alt="Logo" class="custom-logo">
+            <span>Tô Hữu Bằng</span>
+        </a>
+
+        <!-- Menu các trang -->
+        <div class="navbar-nav ms-auto">
+            <a class="nav-link custom-nav-link {{ 'active' if request.endpoint == 'about' }}" 
+               href="{{ url_for('about') }}">Giới thiệu</a>
+
+            <a class="nav-link custom-nav-link {{ 'active' if request.endpoint == 'hoc_van' }}" 
+               href="{{ url_for('hoc_van') }}">Học vấn</a>
+
+            <a class="nav-link custom-nav-link {{ 'active' if request.endpoint == 'du_an' }}" 
+               href="{{ url_for('du_an') }}">Dự án</a>
+
+            <a class="nav-link custom-nav-link {{ 'active' if request.endpoint == 'lien_he' }}" 
+               href="{{ url_for('lien_he') }}">Liên hệ</a>
+        </div>
+    </div>
+</nav>
