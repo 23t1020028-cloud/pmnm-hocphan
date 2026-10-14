@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% from "macros.html" import book_card %}
+
+{% block title %}Trang chủ - LibraryMS{% endblock %}
+
+{% block content %}
+<div class="p-4 mb-4 bg-white rounded-3 shadow-sm border">
+    <h1 class="display-6 fw-bold text-primary">Chào mừng đến với LibraryMS</h1>
+    <p class="col-md-8 fs-6 text-secondary">Hệ thống tra cứu và quản lý đầu sách thư viện trực tuyến.</p>
+</div>
+
+<!-- Thống kê tổng số đầu sách và sẵn sàng -->
+<div class="row g-3 mb-4">
+    <div class="col-md-6">
+        <div class="card bg-primary text-white p-3 shadow-sm border-0">
+            <h3>Tổng số đầu sách</h3>
+            <p class="display-5 fw-bold mb-0">{{ total_books }}</p>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card bg-success text-white p-3 shadow-sm border-0">
+            <h3>Sách sẵn sàng mượn</h3>
+            <p class="display-5 fw-bold mb-0">{{ available_books }}</p>
+        </div>
+    </div>
+</div>
+
+<!-- 3 Sách xuất bản gần đây nhất -->
+<h3 class="mb-3 text-secondary">Sách xuất bản gần đây</h3>
+<div class="row row-cols-1 row-cols-md-3 g-4">
+    {% for book in recent_books %}
+        <div class="col">
+            {{ book_card(book) }}
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}

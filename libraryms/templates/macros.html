@@ -1,0 +1,29 @@
+<!-- Macro hiển thị trạng thái sách -->
+{% macro status_badge(available) %}
+    {% if available %}
+        <span class="badge bg-success">Sẵn sàng</span>
+    {% else %}
+        <span class="badge bg-danger">Đã mượn</span>
+    {% endif %}
+{% endmacro %}
+
+<!-- Macro hiển thị Card sách -->
+{% macro book_card(book) %}
+<div class="card h-100 shadow-sm border-0 custom-card">
+    <div class="card-body d-flex flex-column">
+        <div class="d-flex justify-content-between align-items-start mb-2">
+            <h5 class="card-title text-primary font-weight-bold mb-0 me-2 text-truncate">{{ book.title }}</h5>
+            {{ status_badge(book.available) }}
+        </div>
+        <p class="text-muted small mb-2">Tác giả: <b>{{ book.author }}</b></p>
+        <p class="card-text text-secondary flex-grow-1 small">{{ book.desc }}</p>
+        <div class="d-flex justify-content-between align-items-center mt-3 pt-2 border-top">
+            <span class="badge bg-light text-dark border">Thể loại: {{ book.category }}</span>
+            <small class="text-muted">XB: {{ book.pub_year }}</small>
+        </div>
+        <a href="{{ url_for('book_detail', book_id=book.id) }}" class="btn btn-outline-primary btn-sm mt-3 w-100">
+            Xem chi tiết
+        </a>
+    </div>
+</div>
+{% endmacro %}

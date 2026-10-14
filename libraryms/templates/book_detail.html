@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% from "macros.html" import status_badge %}
+
+{% block title %}{{ book.title }} - Chi tiết{% endblock %}
+
+{% block content %}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{{ url_for('books') }}">Sách</a></li>
+        <li class="breadcrumb-item active">{{ book.title }}</li>
+    </ol>
+</nav>
+
+<div class="card p-4 shadow-sm border-0 bg-white">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2 class="text-primary mb-0">{{ book.title }}</h2>
+        {{ status_badge(book.available) }}
+    </div>
+
+    <!-- Bảng thông tin sách -->
+    <table class="table table-striped mt-3">
+        <tbody>
+            <tr>
+                <th style="width: 200px;">Mã sách (ID):</th>
+                <td>{{ book.id }}</td>
+            </tr>
+            <tr>
+                <th>Tác giả:</th>
+                <td>{{ book.author }}</td>
+            </tr>
+            <tr>
+                <th>Thể loại:</th>
+                <td>
+                    <!-- Thể loại là liên kết sang danh sách đã lọc -->
+                    <a href="{{ url_for('books', category=book.category) }}" class="badge bg-info text-dark text-decoration-none">
+                        {{ book.category }}
+                    </a>
+                </td>
+            </tr>
+            <tr>
+                <th>Năm xuất bản:</th>
+                <td>{{ book.pub_year }}</td>
+            </tr>
+            <tr>
+                <th>Mô tả chi tiết:</th>
+                <td>{{ book.desc }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="mt-3">
+        <a href="{{ url_for('books') }}" class="btn btn-secondary">&laquo; Quay lại danh sách</a>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% from "macros.html" import book_card %}
+
+{% block title %}Danh mục sách - LibraryMS{% endblock %}
+
+{% block content %}
+<h2 class="mb-4">Danh sách sách</h2>
+
+<!-- Thanh lọc thể loại (Buttons) -->
+<div class="mb-4 d-flex flex-wrap gap-2 align-items-center">
+    <span class="fw-bold me-2">Thể loại:</span>
+    <a href="{{ url_for('books') }}" 
+       class="btn btn-sm {{ 'btn-primary' if not selected_category else 'btn-outline-primary' }}">
+        Tất cả
+    </a>
+    {% for cat in all_categories %}
+        <a href="{{ url_for('books', category=cat) }}" 
+           class="btn btn-sm {{ 'btn-primary' if selected_category == cat else 'btn-outline-primary' }}">
+            {{ cat }}
+        </a>
+    {% endfor %}
+</div>
+
+<!-- Lưới Card 1 / 2 / 3 cột -->
+<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
+    {% for book in books %}
+        <div class="col">
+            {{ book_card(book) }}
+        </div>
+    {% else %}
+        <div class="col-12">
+            <div class="alert alert-warning text-center">Không tìm thấy cuốn sách nào thuộc thể loại này.</div>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}
