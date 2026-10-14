@@ -58,3 +58,4 @@ python chacon.py
 
 
 Deploy Vercel: Push code lên GitHub, chọn Root Directory là template_cha_con khi Import vào Vercel.
+Link Vercel: https://vercel.com/tony-1463/pmnm-hocphan
