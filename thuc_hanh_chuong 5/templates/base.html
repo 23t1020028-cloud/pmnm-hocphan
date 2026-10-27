@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Ứng dụng Tổng hợp{% endblock %}</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- File CSS tùy chỉnh -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+    <style>
+        body {
+            background-color: #F1F5F9 !important;
+        }
+
+        .custom-navbar {
+            background-color: #0F172A !important;
+            border-bottom: 3px solid #2563EB;
+        }
+
+        .brand-title {
+            color: #38BDF8 !important;
+            font-weight: 800;
+            font-size: 1.25rem;
+        }
+
+        .nav-custom-link {
+            color: #F8FAFC !important;
+            font-weight: 600;
+            font-size: 0.95rem;
+            padding: 8px 16px !important;
+            border-radius: 6px;
+        }
+
+        .nav-custom-link:hover {
+            color: #38BDF8 !important;
+            background-color: rgba(255, 255, 255, 0.05);
+        }
+
+        .nav-custom-link.active-page {
+            color: #ff0000 !important;
+            background-color: rgba(255, 77, 77, 0.12);
+            font-weight: 700;
+            border-bottom: 3px solid #ff0000;
+        }
+
+        .main-card {
+            border: none;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.12);
+            background-color: #FFFFFF;
+        }
+    </style>
+</head>
+
+<body class="d-flex flex-column min-vh-100">
+
+    <!-- HEADER / NAVBAR -->
+    <header class="custom-navbar shadow mb-4">
+        <div class="container" style="max-width: 950px;">
+            <nav class="navbar navbar-expand-lg navbar-dark py-3">
+
+                <!-- LOGO & TÊN THƯƠNG HIỆU -->
+                <a class="navbar-brand brand-title d-flex align-items-center gap-2" href="{{ url_for('calculator') }}">
+                    <img src="{{ url_for('static', filename='images/logo.svg') }}" alt="Logo"
+                        style="height: 50px; width: auto;" class="d-inline-block align-text-top">
+                    <span>TOOLKIT THB FLASK</span>
+                </a>
+
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <!-- KHU VỰC MENU BÀI TẬP (BÊN TRÁI) -->
+                    <ul class="navbar-nav me-auto ms-lg-3 gap-1">
+                        <li class="nav-item">
+                            <a class="nav-link nav-custom-link {{ 'active-page' if request.endpoint == 'calculator' }}"
+                                href="{{ url_for('calculator') }}">1. Máy tính</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link nav-custom-link {{ 'active-page' if request.endpoint == 'sodiem' }}"
+                                href="{{ url_for('sodiem') }}">2. Tính điểm HP</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link nav-custom-link {{ 'active-page' if request.endpoint == 'bmi' }}"
+                                href="{{ url_for('bmi') }}">3. Tính BMI</a>
+                        </li>
+                    </ul>
+
+                    <!-- KHU VỰC TÀI KHOẢN & PROFILE (BÊN PHẢI) -->
+                    <ul class="navbar-nav ms-auto align-items-center gap-2">
+                        <li class="nav-item">
+                            <a class="nav-link nav-custom-link {{ 'active-page' if request.endpoint == 'profile' }}" href="{{ url_for('profile') }}">
+                                Hồ sơ cá nhân
+                            </a>
+                        </li>
+                        {% if session.get('user') %}
+                            <li class="nav-item">
+                                <form method="POST" action="{{ url_for('logout') }}" class="d-inline">
+                                    <button type="submit" class="btn btn-outline-danger btn-sm fw-bold px-3">Đăng xuất</button>
+                                </form>
+                            </li>
+                        {% else %}
+                            <li class="nav-item">
+                                <a class="nav-link nav-custom-link {{ 'active-page' if request.endpoint == 'login' }}" href="{{ url_for('login') }}">
+                                    Đăng nhập
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="btn btn-primary btn-sm fw-bold px-3 {{ 'active' if request.endpoint == 'register' }}" href="{{ url_for('register') }}">
+                                    Đăng ký
+                                </a>
+                            </li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- NỘI DUNG CHÍNH -->
+    <main class="container flex-grow-1" style="max-width: 650px;">
+        <!-- HIỂN THỊ THÔNG BÁO FLASH -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        {% for category, message in messages %}
+        <div class="alert alert-{{ category }} alert-dismissible fade show shadow-sm mb-4" role="alert">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="text-center py-3 mt-5 border-top text-muted small bg-white">
+        © 2026 TOOLKIT THB FLASK - THB Version v1.0 Edition
+    </footer>
+
+    <!-- Bootstrap 5 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

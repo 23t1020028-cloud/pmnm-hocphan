@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block title %}Tính điểm học phần{% endblock %}
+
+{% block content %}
+<div class="card main-card p-4">
+    <div class="card-body">
+        <div class="text-center mb-4">
+            <span class="badge bg-primary-subtle text-primary fw-bold px-3 py-2 mb-2">BÀI TẬP 2</span>
+            <h3 class="card-title text-primary fw-bold">TÍNH ĐIỂM HỌC PHẦN</h3>
+        </div>
+        
+        <form method="POST" action="{{ url_for('sodiem') }}" novalidate>
+            <div class="mb-3">
+                <label for="cc" class="form-label fw-bold text-secondary">Chuyên cần (10%):</label>
+                <input type="text" name="cc" id="cc" class="form-control {{ 'is-invalid' if errors.cc }}" value="{{ cc_val }}" placeholder="Ví dụ: 10">
+                {% if errors.cc %}<div class="invalid-feedback d-block">{{ errors.cc }}</div>{% endif %}
+            </div>
+
+            <div class="mb-3">
+                <label for="gk" class="form-label fw-bold text-secondary">Giữa kỳ (30%):</label>
+                <input type="text" name="gk" id="gk" class="form-control {{ 'is-invalid' if errors.gk }}" value="{{ gk_val }}" placeholder="Ví dụ: 8">
+                {% if errors.gk %}<div class="invalid-feedback d-block">{{ errors.gk }}</div>{% endif %}
+            </div>
+
+            <div class="mb-3">
+                <label for="ck" class="form-label fw-bold text-secondary">Cuối kỳ (60%):</label>
+                <input type="text" name="ck" id="ck" class="form-control {{ 'is-invalid' if errors.ck }}" value="{{ ck_val }}" placeholder="Ví dụ: 9">
+                {% if errors.ck %}<div class="invalid-feedback d-block">{{ errors.ck }}</div>{% endif %}
+            </div>
+
+            <button type="submit" class="btn btn-primary w-100 py-2 mt-2 fw-bold shadow-sm">Tính điểm</button>
+        </form>
+
+        {% if result %}
+            <div class="alert alert-primary text-center mt-4 mb-0 fs-5 fw-bold border-0 shadow-sm">Kết quả: {{ result }}</div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

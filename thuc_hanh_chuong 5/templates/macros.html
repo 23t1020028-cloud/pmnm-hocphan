@@ -1,0 +1,21 @@
+{% macro render_field(field) %}
+  <div class="mb-3">
+    {% if field.type == 'BooleanField' %}
+      <div class="form-check">
+        {{ field(class="form-check-input" + (" is-invalid" if field.errors else "")) }}
+        {{ field.label(class="form-check-label text-secondary fw-semibold") }}
+        {% for error in field.errors %}
+          <div class="invalid-feedback d-block">{{ error }}</div>
+        {% endfor %}
+      </div>
+    {% elif field.type == 'SubmitField' %}
+      {{ field(class="btn btn-primary w-100 py-2 mt-2 fw-bold shadow-sm") }}
+    {% else %}
+      {{ field.label(class="form-label fw-bold text-secondary") }}
+      {{ field(class="form-control" + (" is-invalid" if field.errors else ""), placeholder=field.label.text) }}
+      {% for error in field.errors %}
+        <div class="invalid-feedback d-block">{{ error }}</div>
+      {% endfor %}
+    {% endif %}
+  </div>
+{% endmacro %}
